@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 @ApplicationScoped
@@ -30,4 +31,14 @@ public class ProductsRepository {
         return product;
     }
 
+    @Transactional
+    public List<Product> deleteProduct(Long id) {
+        Product product = entityManager.find(Product.class, id);
+        if (product == null) {
+            throw new NotFoundException();
+        }
+        entityManager.remove(product);
+        entityManager.flush();
+        return loadProducts();
+    }
 }

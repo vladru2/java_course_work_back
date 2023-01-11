@@ -1,9 +1,8 @@
 package ru.rsatu.hibernatetutorial.resource;
 
 
+import ru.rsatu.hibernatetutorial.pojo.dto.LoadStorageDto;
 import ru.rsatu.hibernatetutorial.pojo.dto.StorageDto;
-import ru.rsatu.hibernatetutorial.pojo.entity.Product;
-import ru.rsatu.hibernatetutorial.service.ProductService;
 import ru.rsatu.hibernatetutorial.service.StorageService;
 
 import javax.annotation.security.PermitAll;
@@ -22,12 +21,12 @@ public class StorageResource {
     @GET
     @PermitAll
     @Path("/loadStorageList")
-    public List<StorageDto> loadProductList() {
-        return storageService.loadStorageList();
+    public LoadStorageDto loadProductList(@QueryParam("from") int from, @QueryParam("to") int to) {
+        return storageService.loadStorageList(from, to);
     }
 
     @POST
-    @RolesAllowed("admin")
+    @RolesAllowed({"user", "admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/saveStorage")
@@ -36,10 +35,10 @@ public class StorageResource {
     }
 
     @DELETE
-    @RolesAllowed("admin")
+    @RolesAllowed({"user", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/deleteStorage")
-    public List<StorageDto> deleteStorage(@QueryParam("id") Long id) {
-        return storageService.deleteStorage(id);
+    public LoadStorageDto deleteStorage(@QueryParam("id") Long id, @QueryParam("from") int from, @QueryParam("to") int to) {
+        return storageService.deleteStorage(id, from, to);
     }
 }

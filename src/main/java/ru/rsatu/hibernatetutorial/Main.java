@@ -12,5 +12,6 @@ public class Main {
         User.deleteAll();
         User.add("admin", "admin", "admin");
         User.add("user", "user", "user");
+        User.add("test", "test", "user");
     }
 }

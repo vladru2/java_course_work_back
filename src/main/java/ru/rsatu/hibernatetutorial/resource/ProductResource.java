@@ -1,6 +1,5 @@
 package ru.rsatu.hibernatetutorial.resource;
 
-
 import ru.rsatu.hibernatetutorial.pojo.entity.Product;
 import ru.rsatu.hibernatetutorial.service.ProductService;
 
@@ -31,5 +30,13 @@ public class ProductResource {
     @Path("/saveProduct")
     public Product saveProduct(Product product) {
         return productService.saveProduct(product);
+    }
+
+    @DELETE
+    @RolesAllowed("admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/deleteProduct")
+    public List<Product> deleteProduct(@QueryParam("id") Long id) {
+        return productService.deleteProduct(id);
     }
 }

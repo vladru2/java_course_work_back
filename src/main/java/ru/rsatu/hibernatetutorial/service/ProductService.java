@@ -20,4 +20,8 @@ public class ProductService {
     public Product saveProduct(Product product) {
         return productsRepository.saveProduct(product);
     }
+
+    public List<Product> deleteProduct(Long id) {
+        return productsRepository.deleteProduct(id);
+    }
 }

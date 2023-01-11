@@ -1,8 +1,7 @@
 package ru.rsatu.hibernatetutorial.pojo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -12,6 +11,10 @@ public class Product {
     private Long id;
     private String name;
     private String city;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private List<Storage> storageList;
 
     public Long getId() {
         return id;

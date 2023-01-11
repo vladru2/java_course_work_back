@@ -1,12 +1,14 @@
 package ru.rsatu.hibernatetutorial.repository;
 
 import ru.rsatu.hibernatetutorial.mapper.StorageMapper;
+import ru.rsatu.hibernatetutorial.pojo.dto.LoadStorageDto;
 import ru.rsatu.hibernatetutorial.pojo.dto.StorageDto;
 import ru.rsatu.hibernatetutorial.pojo.entity.Storage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
@@ -22,9 +24,14 @@ public class StorageRepository {
     @Inject
     StorageMapper storageMapper;
 
-    public List<Storage> loadStorage() {
-        return entityManager.createQuery("select s from Storage s", Storage.class)
-                .getResultList();
+    public LoadStorageDto loadStorage(int from, int to) {
+        Query query = entityManager.createQuery("select s from Storage s order by s.cellNumber", Storage.class);
+        query.setFirstResult(from);
+        query.setMaxResults(to);
+        List<Storage> storageList = query.getResultList();
+
+        query = entityManager.createQuery("select count(*) from Storage s", Long.class);
+        return new LoadStorageDto((Long) query.getSingleResult(), storageList.stream().map(storageMapper::toStorageDto).toList());
     }
 
     @Transactional
@@ -47,14 +54,13 @@ public class StorageRepository {
     }
 
     @Transactional
-    public List<Storage> deleteStorage(Long id) {
+    public LoadStorageDto deleteStorage(Long id, int from, int to) {
         Storage storage = entityManager.find(Storage.class, id);
         if (storage == null) {
             throw new NotFoundException();
         }
         entityManager.remove(storage);
         entityManager.flush();
-        return entityManager.createQuery("select s from Storage s", Storage.class)
-                .getResultList();
+        return loadStorage(from, to);
     }
 }

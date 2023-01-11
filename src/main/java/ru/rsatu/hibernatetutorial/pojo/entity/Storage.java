@@ -18,7 +18,6 @@ public class Storage {
 
     private int quanity;
     private int cellSize;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
