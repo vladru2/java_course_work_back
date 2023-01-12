@@ -41,4 +41,18 @@ public class ProductsRepository {
         entityManager.flush();
         return loadProducts();
     }
+
+    @Transactional
+    public Product updateProduct(Product product) {
+        Product product2 = entityManager.find(Product.class, product.getId());
+        if (product2 == null) {
+            throw new NotFoundException();
+        }
+
+        product2.setName(product.getName());
+        product2.setCity(product.getCity());
+        entityManager.merge(product2);
+        entityManager.flush();
+        return product2;
+    }
 }
