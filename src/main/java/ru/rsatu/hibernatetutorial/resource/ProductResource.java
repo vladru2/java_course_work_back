@@ -32,15 +32,6 @@ public class ProductResource {
         return productService.saveProduct(product);
     }
 
-    @POST
-    @RolesAllowed("admin")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/updateProduct")
-    public Product updateProduct(Product product) {
-        return productService.updateProduct(product);
-    }
-
     @DELETE
     @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)

@@ -24,8 +24,4 @@ public class ProductService {
     public List<Product> deleteProduct(Long id) {
         return productsRepository.deleteProduct(id);
     }
-
-    public Product updateProduct(Product product) {
-        return productsRepository.updateProduct(product);
-    }
 }
