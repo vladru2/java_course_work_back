@@ -3,6 +3,7 @@ package ru.rsatu.hibernatetutorial.service;
 import ru.rsatu.hibernatetutorial.mapper.StorageMapper;
 import ru.rsatu.hibernatetutorial.pojo.dto.LoadStorageDto;
 import ru.rsatu.hibernatetutorial.pojo.dto.StorageDto;
+import ru.rsatu.hibernatetutorial.pojo.entity.Storage;
 import ru.rsatu.hibernatetutorial.repository.StorageRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,6 +20,10 @@ public class StorageService {
 
     public LoadStorageDto loadStorageList(int from, int to) {
         return storageRepository.loadStorage(from, to);
+    }
+
+    public LoadStorageDto loadStorageList2(int from, int to, StorageDto storageDto) {
+        return storageRepository.loadStorage2(from, to, storageDto);
     }
 
     public StorageDto saveStorage(StorageDto storageDto) {

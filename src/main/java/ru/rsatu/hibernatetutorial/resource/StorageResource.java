@@ -3,6 +3,7 @@ package ru.rsatu.hibernatetutorial.resource;
 
 import ru.rsatu.hibernatetutorial.pojo.dto.LoadStorageDto;
 import ru.rsatu.hibernatetutorial.pojo.dto.StorageDto;
+import ru.rsatu.hibernatetutorial.pojo.entity.Storage;
 import ru.rsatu.hibernatetutorial.service.StorageService;
 
 import javax.annotation.security.PermitAll;
@@ -21,8 +22,15 @@ public class StorageResource {
     @GET
     @PermitAll
     @Path("/loadStorageList")
-    public LoadStorageDto loadProductList(@QueryParam("from") int from, @QueryParam("to") int to) {
+    public LoadStorageDto loadStorageList(@QueryParam("from") int from, @QueryParam("to") int to) {
         return storageService.loadStorageList(from, to);
+    }
+
+    @GET
+    @PermitAll
+    @Path("/loadStorageList2")
+    public LoadStorageDto loadStorageList2(@QueryParam("from") int from, @QueryParam("to") int to, StorageDto storageDto) {
+        return storageService.loadStorageList2(from, to, storageDto);
     }
 
     @POST
@@ -30,7 +38,7 @@ public class StorageResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/saveStorage")
-    public StorageDto saveProduct(StorageDto storageDto) {
+    public StorageDto saveStorage(StorageDto storageDto) {
         return storageService.saveStorage(storageDto);
     }
 
