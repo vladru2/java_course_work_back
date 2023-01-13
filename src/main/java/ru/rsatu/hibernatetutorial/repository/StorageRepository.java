@@ -50,7 +50,7 @@ public class StorageRepository {
         }
 
         if (storageDto.getCellSize() != -1) {
-            predicates.add(cb.equal(root.get("cellSize"), storageDto.getQuanity()));
+            predicates.add(cb.equal(root.get("cellSize"), storageDto.getCellSize()));
         }
 
         if (storageDto.getProductId() != null) {
