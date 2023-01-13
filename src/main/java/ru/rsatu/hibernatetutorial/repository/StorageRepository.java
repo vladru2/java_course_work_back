@@ -69,8 +69,7 @@ public class StorageRepository {
         query.setMaxResults(to);
         List<Storage> storageList = query.getResultList();
 
-        query = entityManager.createQuery("select count(*) from Storage s", Long.class);
-        return new LoadStorageDto((Long) query.getSingleResult(), storageList.stream().map(storageMapper::toStorageDto).toList());
+        return new LoadStorageDto((long) entityManager.createQuery(cr).getResultList().size(), storageList.stream().map(storageMapper::toStorageDto).toList());
     }
 
     @Transactional
