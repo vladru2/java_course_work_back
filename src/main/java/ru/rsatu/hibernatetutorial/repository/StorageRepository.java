@@ -62,6 +62,7 @@ public class StorageRepository {
             predicates.add(cb.greaterThanOrEqualTo(dateCreatedPath, storageDto.getLastChangeTime()));
         }
 
+        cr.orderBy(cb.asc(root.get("cellNumber")));
         cr.select(root).where(predicates.toArray(new Predicate[0]));
 
         Query query = entityManager.createQuery(cr);
