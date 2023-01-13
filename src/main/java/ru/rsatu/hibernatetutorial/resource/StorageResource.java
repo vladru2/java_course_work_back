@@ -26,7 +26,7 @@ public class StorageResource {
         return storageService.loadStorageList(from, to);
     }
 
-    @GET
+    @POST
     @PermitAll
     @Path("/loadStorageList2")
     public LoadStorageDto loadStorageList2(@QueryParam("from") int from, @QueryParam("to") int to, StorageDto storageDto) {
